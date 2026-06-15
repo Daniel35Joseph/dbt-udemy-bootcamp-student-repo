@@ -1,16 +1,19 @@
 models:
   - name: dim_listings_cleansed
+    description: Cleansed table which contains Airbnb listings.
     data_tests:
       - minimum_row_count:
           arguments:
             min_row_count: 10000000000
     columns:
       - name: listing_id
+        description: Primary key for the listing
         data_tests:
           - unique
           - not_null
 
       - name: host_id
+        description: The host's id. References the host table.
         data_tests:
           - not_null
           - relationships:
@@ -19,6 +22,7 @@ models:
                 field: host_id
 
       - name: room_type
+        description: Tpe of the apartment / room
         data_tests:
           - accepted_values:
               arguments:
@@ -31,10 +35,12 @@ models:
                   ]
 
       - name: minimum_nights
+        description: '{{ doc("dim_listing_cleansed__minimum_nights")}}'
         data_tests:
           - positive_values
 
   - name: dim_hosts_cleansed
+    description: Cleansed table for Airbnb hosts table
     config:
       contract:
         enforced: true
@@ -43,6 +49,7 @@ models:
         columns: [host_id]
     columns:
       - name: host_id
+        description: Primary Key for hosts
         data_type: integer
         constraints:
           - type: not_null
@@ -52,6 +59,7 @@ models:
           - not_null
 
       - name: host_name
+        description: The name of he host of the Airbnb listing
         data_type: string
         constraints:
           - type: not_null
@@ -59,6 +67,7 @@ models:
           - not_null
 
       - name: is_superhost
+        description: Whether the host is an Airbnb super host or not.
         data_type: string
         data_tests:
           - accepted_values:
@@ -66,6 +75,8 @@ models:
                 values: ["f", "t"]
 
       - name: updated_at
+        description: When the record has last been updated
         data_type: timestamp
       - name: created_at
+        description: When the record has been created.
         data_type: timestamp
