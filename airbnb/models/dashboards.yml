@@ -1,7 +1,7 @@
 version: 2
 
 exposures:
-  - name: Executive Dashboard
+  - name: Executive_Dashboard
     label: dashboard
     type: dashboard
     maturity: low
