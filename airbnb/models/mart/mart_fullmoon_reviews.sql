@@ -1,6 +1,11 @@
 {{
     config(
-        materialized = 'table',
+        materialized = 'incremental',
+        incremental_startegy = 'micro',
+        event_time = "review_date",
+        begin = "2009-06-20",
+        batch_size = "years",
+        full_refresh = false,
         tags = ['fact']
     )
 }}

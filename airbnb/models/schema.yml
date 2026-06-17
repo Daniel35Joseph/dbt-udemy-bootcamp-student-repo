@@ -41,19 +41,33 @@ models:
 
   - name: dim_hosts_cleansed
     description: Cleansed table for Airbnb hosts table
+    versions:
+      - v: 1
+        defined_in: dim_hosts_cleansed
+        deprecation_date: 2030-01-01
+      - v: 2
+        columns:
+          - include: "*"
+            exclude: [host_name]
+          - name: host_name
+            description: The name of the host (N/A if not available)
+            data_type: string
+            constraints:
+              - type: not_null
+        defined_in: dim_hosts_cleansed_v2
+    latest_version: 1
     config:
       contract:
         enforced: true
-    constraints:
-      - type: primary_key
-        columns: [host_id]
+    # constraints:
+    #   - type: primary_key
+    #     columns: [host_id]
     columns:
       - name: host_id
         description: Primary Key for hosts
         data_type: integer
         constraints:
           - type: not_null
-          - type: unique
         data_tests:
           - unique
           - not_null
